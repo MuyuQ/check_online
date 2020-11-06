@@ -25,25 +25,28 @@ def index():
         datas = json.load(f)
     return render_template('index.html', datas=datas)
 
+
 def status(data):
     for task in data['tasks']:
         status = http_handler(task['address'])
-        if status != task['status'] and status=='在线':
+        if status != task['status'] and status == '在线':
             task['status'] = status
             with open('server.json', 'w', encoding='utf-8') as f:
-                json.dump(data,f)
-        if status != task['status'] and status =='异常':
+                json.dump(data, f)
+        if status != task['status'] and status == '异常':
             task['status'] = status
             with open('server.json', 'w', encoding='utf-8') as f:
-                json.dump(data,f)
-            send_mail(app,task['owner'],task['address'])
+                json.dump(data, f)
+            send_mail(app, task['owner'], task['address'])
     return data
 
-@scheduler.scheduled_job('interval',id='online_check',seconds=10)
+
+@scheduler.scheduled_job('interval', id='online_check', seconds=10)
 def online_check():
     with open('server.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
     status(data)
+
 
 if __name__ == '__main__':
     app.run()

@@ -6,10 +6,10 @@
 </head>
 <body>
 {% for task in datas['tasks'] %}
-<div>
+    <div>
     <p>{{ task.owner }} {{ task.address }}</p>
     <p>{{ task.status }}</p>
+    </div>
 {% endfor %}
-</div>
 </body>
 </html>
