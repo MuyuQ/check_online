@@ -1,0 +1,4 @@
+Flask==1.1.2
+requests==2.23.0
+APScheduler==3.6.3
+Flask_Mail==0.9.1
